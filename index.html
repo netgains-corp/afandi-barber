@@ -17,9 +17,9 @@
                 extend: {
                     colors: {
                         gold: {
-                            400: '#fbbf24',
-                            500: '#f59e0b',
-                            600: '#d97706',
+                            400: '#FCD34D', /* Helleres Gold */
+                            500: '#D4AF37', /* Klassisches Metallic Gold */
+                            600: '#B8860B', /* Dunkles Gold */
                         },
                         dark: {
                             900: '#111827',
@@ -30,7 +30,7 @@
                     fontFamily: {
                         'head': ['Oswald', 'sans-serif'],
                         'body': ['Roboto', 'sans-serif'],
-                        'arabic': ['Cairo', 'sans-serif'], // Font für Arabisch
+                        'arabic': ['Cairo', 'sans-serif'],
                     }
                 }
             }
@@ -41,7 +41,7 @@
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #1f2937; }
         ::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #fbbf24; }
+        ::-webkit-scrollbar-thumb:hover { background: #D4AF37; }
 
         .glass-card {
             background: rgba(31, 41, 55, 0.90);
@@ -56,12 +56,47 @@
         html[dir="rtl"] .lang-de { display: none; }
         html[dir="rtl"] .lang-ar { display: block; }
         html[dir="rtl"] body { font-family: 'Cairo', sans-serif; }
+
+        /* GOLD SHINE ANIMATION */
+        .gold-shine {
+            background: linear-gradient(
+                to right,
+                #B8860B 0%,
+                #FCD34D 25%,
+                #D4AF37 50%,
+                #FCD34D 75%,
+                #B8860B 100%
+            );
+            background-size: 200% auto;
+            color: #000;
+            animation: shine 3s linear infinite;
+            border: 1px solid #FCD34D;
+        }
+
+        .gold-border-shine {
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        /* Text Gold Gradient (Optional für Überschriften) */
+        .text-gold-gradient {
+            background: linear-gradient(to right, #FCD34D, #D4AF37, #B8860B);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        @keyframes shine {
+            to {
+                background-position: 200% center;
+            }
+        }
     </style>
 </head>
 <body class="bg-black text-gray-100 font-body min-h-screen pb-20 transition-all duration-300">
 
     <!-- LANGUAGE TOGGLE BUTTON (FIXED TOP RIGHT) -->
-    <button onclick="toggleLanguage()" class="fixed top-4 right-4 z-50 bg-gold-500 hover:bg-gold-600 text-black font-bold py-2 px-4 rounded-full shadow-lg transition transform hover:scale-105 flex items-center gap-2 border-2 border-white/20">
+    <button onclick="toggleLanguage()" class="fixed top-4 right-4 z-50 gold-shine font-bold py-2 px-4 rounded-full shadow-lg transition transform hover:scale-105 flex items-center gap-2 border border-white/20">
         <i class="fas fa-globe"></i>
         <span class="lang-de text-sm">عربي</span>
         <span class="lang-ar text-sm">DE</span>
@@ -80,12 +115,14 @@
 
         <!-- Header Logo Area -->
         <div class="text-center mb-8 animate-fade-in-down mt-8">
-            <div class="inline-block p-4 rounded-full border-2 border-gold-500 mb-2 bg-dark-900/80 shadow-[0_0_15px_rgba(245,158,11,0.3)] backdrop-blur-sm">
-                <i class="fas fa-cut text-4xl text-gold-500"></i>
+            <div class="inline-block p-4 rounded-full border-2 border-gold-500 mb-2 bg-dark-900/80 shadow-[0_0_20px_rgba(212,175,55,0.4)] backdrop-blur-sm relative overflow-hidden">
+                 <!-- Shine effect on logo border container -->
+                 <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] animate-[shine_3s_infinite]"></div>
+                <i class="fas fa-cut text-4xl text-gold-500 drop-shadow-[0_0_5px_rgba(212,175,55,0.8)]"></i>
             </div>
             <h1 class="text-4xl font-head font-bold uppercase tracking-wider text-white drop-shadow-lg">
-                <span class="lang-de">Afandi <span class="text-gold-500">Barber</span></span>
-                <span class="lang-ar">أفندي <span class="text-gold-500">باربر</span></span>
+                <span class="lang-de">Afandi <span class="text-gold-gradient">Barber</span></span>
+                <span class="lang-ar">أفندي <span class="text-gold-gradient">باربر</span></span>
             </h1>
             <p class="text-gray-300 text-sm tracking-widest mt-1 drop-shadow-md">
                 <span class="lang-de">EST. 2024</span>
@@ -94,11 +131,12 @@
         </div>
 
         <!-- KARTE 1: INFO & KONTAKT -->
-        <div class="glass-card rounded-2xl p-6 shadow-xl relative overflow-hidden group">
-            <div class="absolute top-0 right-0 w-20 h-20 bg-gold-500 blur-3xl opacity-10 rounded-full pointer-events-none"></div>
+        <div class="glass-card rounded-2xl p-6 shadow-xl relative overflow-hidden group border-gold-500/30">
+            <!-- Subtle Gold Glow top right -->
+            <div class="absolute top-0 right-0 w-32 h-32 bg-gold-500 blur-[60px] opacity-10 rounded-full pointer-events-none"></div>
             
             <h2 class="text-2xl font-head font-bold mb-4 flex items-center text-white gap-3">
-                <i class="fas fa-store text-gold-500"></i> 
+                <i class="fas fa-store text-gold-500 drop-shadow-md"></i> 
                 <span class="lang-de">Info & Zeiten</span>
                 <span class="lang-ar">المعلومات والأوقات</span>
             </h2>
@@ -167,8 +205,8 @@
                     </div>
                 </div>
 
-                <!-- Call Button -->
-                <a href="tel:067619182030" class="block w-full bg-gold-500 hover:bg-gold-600 text-black font-bold py-3 px-4 rounded-xl text-center transition transform active:scale-95 shadow-lg mt-4 flex items-center justify-center gap-2">
+                <!-- Call Button with SHINE ANIMATION -->
+                <a href="tel:067619182030" class="block w-full gold-shine font-bold py-3 px-4 rounded-xl text-center transition transform active:scale-95 shadow-[0_0_15px_rgba(212,175,55,0.3)] mt-4 flex items-center justify-center gap-2">
                     <i class="fas fa-phone-alt transform scale-x-[-1]"></i> 
                     <span class="lang-de">Jetzt Anrufen</span>
                     <span class="lang-ar">اتصل الآن</span>
@@ -177,8 +215,8 @@
         </div>
 
         <!-- KARTE 2: PREISLISTE -->
-        <div class="glass-card rounded-2xl p-6 shadow-xl relative">
-            <h2 class="text-2xl font-head font-bold mb-5 flex items-center border-b border-dark-700 pb-2 text-white gap-3">
+        <div class="glass-card rounded-2xl p-6 shadow-xl relative border-gold-500/20">
+            <h2 class="text-2xl font-head font-bold mb-5 flex items-center border-b border-gray-700 pb-2 text-white gap-3">
                 <i class="fas fa-clipboard-list text-gold-500"></i> 
                 <span class="lang-de">Preisliste</span>
                 <span class="lang-ar">قائمة الأسعار</span>
@@ -197,7 +235,7 @@
                             <span class="lang-ar">جاف / رطب ، شامل التصفيف</span>
                         </p>
                     </div>
-                    <span class="text-gold-400 font-head font-bold text-xl">18€</span>
+                    <span class="text-gold-400 font-head font-bold text-xl drop-shadow-sm">18€</span>
                 </div>
 
                 <!-- Item 2 -->
@@ -212,7 +250,7 @@
                             <span class="lang-ar">مع فوطة ساخنة وتحديد</span>
                         </p>
                     </div>
-                    <span class="text-gold-400 font-head font-bold text-xl">15€</span>
+                    <span class="text-gold-400 font-head font-bold text-xl drop-shadow-sm">15€</span>
                 </div>
 
                 <!-- Item 3 -->
@@ -227,7 +265,7 @@
                             <span class="lang-ar">شعر + ذقن + شمع + قناع</span>
                         </p>
                     </div>
-                    <span class="text-gold-400 font-head font-bold text-xl">35€</span>
+                    <span class="text-gold-400 font-head font-bold text-xl drop-shadow-sm">35€</span>
                 </div>
 
                 <!-- Item 4 -->
@@ -242,7 +280,7 @@
                             <span class="lang-ar">حتى ١٢ سنة</span>
                         </p>
                     </div>
-                    <span class="text-gold-400 font-head font-bold text-xl">15€</span>
+                    <span class="text-gold-400 font-head font-bold text-xl drop-shadow-sm">15€</span>
                 </div>
                  <!-- Item 5 -->
                  <div class="flex justify-between items-end pb-2">
@@ -256,13 +294,13 @@
                             <span class="lang-ar">بالخيط</span>
                         </p>
                     </div>
-                    <span class="text-gold-400 font-head font-bold text-xl">5€</span>
+                    <span class="text-gold-400 font-head font-bold text-xl drop-shadow-sm">5€</span>
                 </div>
             </div>
         </div>
 
         <!-- KARTE 3: GALERIE -->
-        <div class="glass-card rounded-2xl p-6 shadow-xl">
+        <div class="glass-card rounded-2xl p-6 shadow-xl border-gold-500/20">
             <h2 class="text-2xl font-head font-bold mb-4 flex items-center text-white gap-3">
                 <i class="fas fa-images text-gold-500"></i> 
                 <span class="lang-de">Galerie</span>
@@ -271,22 +309,22 @@
             
             <div class="grid grid-cols-2 gap-3">
                 <!-- Bild 1 -->
-                <div class="aspect-square rounded-lg overflow-hidden border border-dark-700">
+                <div class="aspect-square rounded-lg overflow-hidden border border-dark-700 hover:border-gold-500/50 transition duration-300">
                     <img src="https://images.unsplash.com/photo-1621605815971-fbc98d665033?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
                          alt="Schnitt 1" class="w-full h-full object-cover transform hover:scale-110 transition duration-500">
                 </div>
                 <!-- Bild 2 -->
-                <div class="aspect-square rounded-lg overflow-hidden border border-dark-700">
+                <div class="aspect-square rounded-lg overflow-hidden border border-dark-700 hover:border-gold-500/50 transition duration-300">
                     <img src="https://images.unsplash.com/photo-1599351431202-1e0f0137899a?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
                          alt="Schnitt 2" class="w-full h-full object-cover transform hover:scale-110 transition duration-500">
                 </div>
                 <!-- Bild 3 -->
-                <div class="aspect-square rounded-lg overflow-hidden border border-dark-700">
+                <div class="aspect-square rounded-lg overflow-hidden border border-dark-700 hover:border-gold-500/50 transition duration-300">
                     <img src="https://images.unsplash.com/photo-1503951914875-befbb6491842?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
                          alt="Schnitt 3" class="w-full h-full object-cover transform hover:scale-110 transition duration-500">
                 </div>
                 <!-- Bild 4 -->
-                <div class="aspect-square rounded-lg overflow-hidden border border-dark-700">
+                <div class="aspect-square rounded-lg overflow-hidden border border-dark-700 hover:border-gold-500/50 transition duration-300">
                     <img src="https://images.unsplash.com/photo-1593702295094-aea8c5c13d73?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" 
                          alt="Schnitt 4" class="w-full h-full object-cover transform hover:scale-110 transition duration-500">
                 </div>
@@ -298,7 +336,7 @@
         </div>
 
         <!-- KARTE 4: ANFAHRT -->
-        <div class="glass-card rounded-2xl p-0 shadow-xl overflow-hidden mb-10">
+        <div class="glass-card rounded-2xl p-0 shadow-xl overflow-hidden mb-10 border-gold-500/20">
             <div class="p-6 pb-2">
                 <h2 class="text-2xl font-head font-bold mb-2 flex items-center text-white gap-3">
                     <i class="fas fa-location-arrow text-gold-500"></i> 
